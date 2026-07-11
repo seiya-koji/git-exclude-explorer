@@ -2,7 +2,7 @@
   "name": "git-exclude-explorer",
   "displayName": "Git Exclude Explorer",
   "description": "Browse and manage .git/info/exclude and your global gitignore in a dedicated tree view, with add/remove from the Explorer context menu.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "seiya-koji",
   "repository": {
     "type": "git",
