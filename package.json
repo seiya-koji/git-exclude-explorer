@@ -1,0 +1,163 @@
+{
+  "name": "git-exclude-explorer",
+  "displayName": "Git Exclude Explorer",
+  "description": "Browse and manage .git/info/exclude and your global gitignore in a dedicated tree view, with add/remove from the Explorer context menu.",
+  "version": "0.0.1",
+  "publisher": "seiya-koji",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/seiya-koji/git-exclude-explorer.git"
+  },
+  "icon": "media/marketplace-icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "license": "MIT",
+  "categories": [
+    "SCM Providers",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitExclude",
+          "title": "Git Exclude",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gitExclude": [
+        {
+          "id": "gitExclude.view",
+          "name": "Exclude Patterns"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "gitExclude.addSubmenu",
+        "label": "Add to Git Ignore"
+      }
+    ],
+    "commands": [
+      {
+        "command": "gitExclude.addToLocalExclude",
+        "title": "Add to Local Git Exclude",
+        "category": "Git Exclude"
+      },
+      {
+        "command": "gitExclude.addToGitignore",
+        "title": "Add to .gitignore",
+        "category": "Git Exclude"
+      },
+      {
+        "command": "gitExclude.addToGlobalIgnore",
+        "title": "Add to Global Git Ignore",
+        "category": "Git Exclude"
+      },
+      {
+        "command": "gitExclude.removeEntry",
+        "title": "Remove from Git Exclude",
+        "category": "Git Exclude",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "gitExclude.refresh",
+        "title": "Refresh",
+        "category": "Git Exclude",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "gitExclude.sortAlphabetically",
+        "title": "Sort Alphabetically",
+        "category": "Git Exclude",
+        "icon": "$(sort-precedence)"
+      },
+      {
+        "command": "gitExclude.sortByDefinitionOrder",
+        "title": "Sort by Definition Order",
+        "category": "Git Exclude",
+        "icon": "$(list-ordered)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "submenu": "gitExclude.addSubmenu",
+          "group": "7_modification"
+        }
+      ],
+      "gitExclude.addSubmenu": [
+        {
+          "command": "gitExclude.addToLocalExclude",
+          "group": "1_targets@1"
+        },
+        {
+          "command": "gitExclude.addToGitignore",
+          "group": "1_targets@2"
+        },
+        {
+          "command": "gitExclude.addToGlobalIgnore",
+          "group": "1_targets@3"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "gitExclude.refresh",
+          "when": "view == gitExclude.view",
+          "group": "navigation"
+        },
+        {
+          "command": "gitExclude.sortAlphabetically",
+          "when": "view == gitExclude.view && !gitExclude.sortAlphabetically",
+          "group": "navigation"
+        },
+        {
+          "command": "gitExclude.sortByDefinitionOrder",
+          "when": "view == gitExclude.view && gitExclude.sortAlphabetically",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "gitExclude.removeEntry",
+          "when": "view == gitExclude.view && viewItem == gitExclude.pattern",
+          "group": "inline"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./tsconfig.build.json",
+    "watch": "tsc -watch -p ./tsconfig.build.json",
+    "package": "vsce package --no-dependencies",
+    "prepare": "husky",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^20",
+    "@types/vscode": "^1.85.0",
+    "@vitest/coverage-v8": "^4.1.9",
+    "@vscode/vsce": "^3.0.0",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "prettier": "^3.8.4",
+    "typescript": "^5.3",
+    "typescript-eslint": "^8.61.1",
+    "vitest": "^4.1.9"
+  }
+}
